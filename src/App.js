@@ -27,12 +27,16 @@ function App() {
 
     // 3. Set the resulting transformation as state using setFilms
     // 4. You'll know it works if the films show up on the page
-    const resp = await fetch('https://the-one-api.dev/v2/movie/', {
+    const resp = await fetch(`${process.env.REACT_APP_SUPABASE_URL}/rest/v1/films`, {
       headers: {
-        Authorization: `Bearer ${process.env.REACT_APP_API_KEY}`,
+        apikey: process.env.REACT_APP_SUPABASE_KEY,
+        Authorization: `Bearer ${process.env.REACT_APP_SUPABASE_KEY}`,
       },
     });
-    return [];
+
+    const data = await resp.json();
+    console.log(data);
+    return [films];
   };
 
   const getCharacters = async () => {
@@ -48,13 +52,16 @@ function App() {
     //    ]
     // 3. Set the resulting transformation as state using setCharacters
     // 4. You'll know it works if the characters show up on the page
-    const resp = await fetch('https://the-one-api.dev/v2/character/', {
+    const resp = await fetch(`${process.env.REACT_APP_SUPABASE_URL}/rest/v1/films`, {
       headers: {
-        Authorization: `Bearer ${process.env.REACT_APP_API_KEY}`,
+        apikey: process.env.REACT_APP_SUPABASE_KEY,
+        Authorization: `Bearer ${process.env.REACT_APP_SUPABASE_KEY}`,
       },
     });
+    const data = await resp.json();
+    console.log(data);
 
-    return [];
+    return [characters];
   };
 
   return (
@@ -70,10 +77,10 @@ function App() {
         </header>
         <Switch>
           <Route exact path="/films">
-            <FilmList />
+            <FilmList setFilms={setFilms} />
           </Route>
           <Route path="/characters">
-            <CharacterList />
+            <CharacterList setCharacters={setCharacters} />
           </Route>
         </Switch>
       </BrowserRouter>
