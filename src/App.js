@@ -41,9 +41,16 @@ function App() {
       },
     });
     const data = await resp.json();
-    setCharacters(data);
+    const Data = data.map((item) => ({
+      name: item.name,
+      birth: item.birth,
+      death: item.death,
+      dates: item.birth === item.death ? 'Unknown' : `${item.birth} - ${item.death}`,
+    }));
 
-    return [];
+    setCharacters(Data);
+
+    return [CharacterList];
   };
 
   return (
